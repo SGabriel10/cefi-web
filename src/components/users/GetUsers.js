@@ -42,7 +42,7 @@ export const GetUsers = () => {
   return (
     <div>
         <div className="col-5">
-            <input value={search} onChange={handleSearch} type="text" placeholder="Buscar Usuario por nombre" className="mb-3 form-control"/>
+            <input value={search} onChange={handleSearch} type="text" placeholder="Buscar Usuario" className="mb-3 form-control"/>
         </div>
         <table className="table">
       <thead>
