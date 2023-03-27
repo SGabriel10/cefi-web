@@ -72,7 +72,8 @@ export const GetUsers = () => {
       }
       </tbody>
     </table>
-    <Pagination userPerPage={userPerPage} totalPost={users.length} paginate={paginate}/>
+    <Pagination userPerPage={userPerPage} totalPost={users.length} paginate={paginate} currentPage={currentPage} setCurrentPage={setCurrentPage}/>
+    }
     </div>
   )
 }
