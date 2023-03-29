@@ -1,7 +1,8 @@
 import React, {useEffect,useState}from 'react'
 import {useDispatch, useSelector} from "react-redux";
-import {userDeleted, userStartLoading} from "../../actions/users";
+import {userDeleted, userSetActive, userStartLoading} from "../../actions/users";
 import Pagination from "./Pagination";
+import {uiOpenModal} from "../../actions/ui";
 
 export const GetUsers = () => {
     let results=[];
@@ -9,15 +10,22 @@ export const GetUsers = () => {
     const dispatch = useDispatch();
     const [search, setSearch]= useState("")
     const [currentPage, setCurrentPage] =useState(1);
-    const [userPerPage, setUserPerPage]=useState(5);
+    const [userPerPage]=useState(5);
 
     const indexLastUser = currentPage* userPerPage;
     const indexOfFirstUser = indexLastUser - userPerPage;
     const currentUsers= users.slice(indexOfFirstUser,indexLastUser);
 
+
     useEffect(() => {
         dispatch(userStartLoading());
     }, [dispatch]);
+
+
+    const handleUpdate=(user)=>{
+        dispatch(uiOpenModal());
+        dispatch(userSetActive(user));
+    }
 
     const handleDelete=(user)=>{
         dispatch(userDeleted(user))
@@ -32,8 +40,7 @@ export const GetUsers = () => {
     }
 
     if(!search){
-        results= currentUsers;
-        //setSearch("");
+        results= currentUsers
     }else{
        results= users.filter((x)=>
             x.name.toLowerCase().includes(search.toLowerCase())
@@ -62,8 +69,8 @@ export const GetUsers = () => {
                   <td>{x.name}</td>
                   <td>{x.email}</td>
                   <td>
-                      <button className="btn btn-info"><i className="fa fa-edit"></i></button>
-                      <button className="btn btn-danger" onClick={()=>handleDelete(x)}><i className="fa fa-trash"></i></button>
+                      <button onClick={()=>handleUpdate(x)} className="btn btn-info"><i className="fa fa-edit"></i></button>
+                      <button onClick={()=>handleDelete(x)} className="btn btn-danger"><i className="fa fa-trash"></i></button>
                   </td>
               </tr>
               );

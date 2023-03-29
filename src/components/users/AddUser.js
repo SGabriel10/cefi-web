@@ -1,12 +1,13 @@
 
 
 
-import React,{useState} from 'react';
-import { Link } from "react-router-dom";
+import React,{useEffect} from 'react';
 import Modal from 'react-modal';
 import {useDispatch, useSelector} from "react-redux";
-import {userCreate, userStartLoading} from "../../actions/users";
+import {userClearActive, userCreate, userStartLoading, userUpdated} from "../../actions/users";
 import {uiCloseModal} from "../../actions/ui";
+import {useForm} from "../../hooks/useForm";
+import Swal from "sweetalert2";
 
 const initForm = {
     name: '',
@@ -33,27 +34,43 @@ const AddUser = () => {
 
     const dispatch= useDispatch();
     const {modalOpen} = useSelector(state=>state.ui );
-    const [formValues, setFormValues] = useState(initForm);
-    const {name,email,password} = formValues;
-    const handleInputChange=({target})=>{
-        setFormValues({
-            ...formValues,
-            [target.name]: target.value
-        });
-    }
+    const {activeUser} = useSelector(state=> state.user);
+    const [values,handleInputChange,reset,setValues] = useForm(initForm);
+    const {name,email,password} = values;
+
+    useEffect(() => {
+        if(activeUser){
+            setValues(activeUser);
+        }else{
+            setValues(initForm);
+        }
+    }, [activeUser,setValues]);
+
+
+
+
+
     const closeModal=()=>{
         dispatch(uiCloseModal());
-       // dispatch(eventClearActive());
-        setFormValues(initForm);
+        dispatch(userClearActive());
+        reset();
     }
 
 
 
 
-    const saveUser = async (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        dispatch(userCreate(formValues));
-        setFormValues(initForm);
+        if(activeUser){
+            dispatch(userUpdated(values));
+           // setFormValues(activeUser);
+           // console.log("editando");
+        }else{
+            Swal.fire('Usuario Creado',{},'success');
+            dispatch(userCreate(values));
+        }
+
+        reset();
         dispatch(uiCloseModal());
         dispatch(userStartLoading());
     }
@@ -80,7 +97,7 @@ const AddUser = () => {
                         </div>
                     </div>
                     <div className="card-body">
-                        <form onSubmit={saveUser}>
+                        <form onSubmit={handleSubmit}>
                             <div className="form-group mb-3">
                                 <label>Name</label>
                                 <input type="text" name="name" onChange={handleInputChange} value={name} className="form-control" />
@@ -93,7 +110,7 @@ const AddUser = () => {
 
                             <div className="form-group mb-3">
                                 <label>Password</label>
-                                <input type="text" name="password" onChange={handleInputChange} value={password} className="form-control" />
+                                <input type="password" name="password" onChange={handleInputChange} value={password} className="form-control" />
                             </div>
 
                             <div className="form-group mb-3">
