@@ -91,7 +91,7 @@ const AddUser = () => {
                     <div className="card-header">
                         <div className="row">
                             <div className="col-md-10">
-                                <h4>Agregar Usuario</h4>
+                                <h4>{activeUser? 'Editar': 'Agregar'} Usuario</h4>
                             </div>
 
                         </div>
