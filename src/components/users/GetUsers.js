@@ -1,7 +1,7 @@
 import React, {useEffect,useState}from 'react'
 import {useDispatch, useSelector} from "react-redux";
 import {userDeleted, userSetActive, userStartLoading} from "../../actions/users";
-import Pagination from "./Pagination";
+import Pagination from '../ui/Pagination';
 import {uiOpenModal} from "../../actions/ui";
 
 export const GetUsers = () => {
@@ -79,7 +79,7 @@ export const GetUsers = () => {
       }
       </tbody>
     </table>
-    <Pagination userPerPage={userPerPage} totalPost={users.length} paginate={paginate} currentPage={currentPage} setCurrentPage={setCurrentPage}/>
+    <Pagination pagePerPage={userPerPage} totalPost={users.length} paginate={paginate} currentPage={currentPage} setCurrentPage={setCurrentPage}/>
     </div>
   )
 }

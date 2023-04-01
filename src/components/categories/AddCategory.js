@@ -4,10 +4,9 @@
 import React,{useEffect} from 'react';
 import Modal from 'react-modal';
 import {useDispatch, useSelector} from "react-redux";
-import {userClearActive, userCreate, userStartLoading, userUpdated} from "../../actions/users";
+import {categoryClearActive, categoryCreate, categoryStartLoading, categoryUpdated} from "../../actions/category";
 import {uiCloseModal} from "../../actions/ui";
 import {useForm} from "../../hooks/useForm";
-import Swal from "sweetalert2";
 
 const initForm = {
     name: '',
@@ -21,6 +20,7 @@ const customStyles = {
         left                  : '50%',
         right                 : 'auto',
         bottom                : 'auto',
+        height                : '40%',
         marginRight           : '-50%',
         transform             : 'translate(-50%, -50%)'
     }
@@ -30,21 +30,21 @@ Modal.setAppElement('#root');
 
 
 
-const AddUser = () => {
+const AddCategory = () => {
 
     const dispatch= useDispatch();
     const {modalOpen} = useSelector(state=>state.ui );
-    const {activeUser} = useSelector(state=> state.user);
+    const {activeCategory} = useSelector(state=> state.category);
     const [values,handleInputChange,reset,setValues] = useForm(initForm);
-    const {name,email,password} = values;
+    const {descripcion} = values;
 
     useEffect(() => {
-        if(activeUser){
-            setValues(activeUser);
+        if(activeCategory){
+            setValues(activeCategory);
         }else{
             setValues(initForm);
         }
-    }, [activeUser,setValues]);
+    }, [activeCategory,setValues]);
 
 
 
@@ -52,7 +52,7 @@ const AddUser = () => {
 
     const closeModal=()=>{
         dispatch(uiCloseModal());
-        dispatch(userClearActive());
+        dispatch(categoryClearActive());
         reset();
     }
 
@@ -61,36 +61,36 @@ const AddUser = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        if(activeUser){
-            dispatch(userUpdated(values));
-           // setFormValues(activeUser);
-           // console.log("editando");
+        if(activeCategory){
+            dispatch(categoryUpdated(values));
+            // setFormValues(activeUser);
+            // console.log("editando");
         }else{
-            dispatch(userCreate(values));
+            console.log("?");
+            dispatch(categoryCreate(values));
         }
 
         reset();
         dispatch(uiCloseModal());
-        dispatch(userStartLoading());
+        dispatch(categoryStartLoading());
     }
 
 
-        return (
-            <Modal
-                isOpen={modalOpen}
-                // onAfterOpen={afterOpenModal}
-                onRequestClose={closeModal}
-                style={customStyles}
-                closeTimeoutMS={200}
-                className="modal"
-                overlayClassName="modal-fondo"
-            >
+    return (
+        <Modal
+            isOpen={modalOpen}
+            onRequestClose={closeModal}
+            style={customStyles}
+            closeTimeoutMS={200}
+            className="modal"
+            overlayClassName="modal-fondo"
+        >
             <div className="container">
                 <div className="card">
                     <div className="card-header">
                         <div className="row">
                             <div className="col-md-10">
-                                <h4>{activeUser? 'Editar': 'Agregar'} Usuario</h4>
+                                <h4>{activeCategory? 'Editar': 'Agregar'} Categoria</h4>
                             </div>
 
                         </div>
@@ -98,20 +98,9 @@ const AddUser = () => {
                     <div className="card-body">
                         <form onSubmit={handleSubmit}>
                             <div className="form-group mb-3">
-                                <label>Name</label>
-                                <input type="text" name="name" onChange={handleInputChange} value={name} className="form-control" />
+                                <label>Descripcion</label>
+                                <input type="text" name="descripcion" onChange={handleInputChange} value={descripcion} className="form-control" />
                             </div>
-
-                            <div className="form-group mb-3">
-                                <label>Email</label>
-                                <input type="text" name="email" onChange={handleInputChange} value={email} className="form-control" />
-                            </div>
-
-                            <div className="form-group mb-3">
-                                <label>Password</label>
-                                <input type="password" name="password" onChange={handleInputChange} value={password} className="form-control" />
-                            </div>
-
                             <div className="form-group mb-3">
                                 <button
                                     type="submit"
@@ -126,7 +115,8 @@ const AddUser = () => {
                 </div>
             </div>
         </Modal>
-        );
+    );
 };
 
-export default AddUser;
+export default AddCategory;
+

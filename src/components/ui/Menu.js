@@ -17,7 +17,22 @@ export default class Menu extends Component {
               {/* Sidebar Menu */}
               <nav className="mt-2">
                 <ul className="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-                  <li className="nav-item">
+                    <li className="nav-item">
+                        <Link  className="nav-link" to="/productos">
+                            <i className="fa fa-shopping-cart"></i>
+                            <p> Productos</p>
+                        </Link>
+                    </li>
+
+                    <li className="nav-item">
+                        <Link  className="nav-link" to="/categorias">
+                            <i className="fa fa-list-alt" aria-hidden="true"></i>
+                            <p> Categorias</p>
+                        </Link>
+                    </li>
+
+
+                    <li className="nav-item">
                   <Link  className="nav-link" to="/usuarios">
                       <i className="fas fa-user-alt"></i>
                       <p> Usuarios</p>

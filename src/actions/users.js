@@ -26,7 +26,9 @@ export const userCreate = (user)=>{
 
             if(data.ok){
                 dispatch(userNew(user));
-                Swal.fire('Mensaje',data.msg,'success');
+                Swal.fire('Usuario Creado',data.msg,'success');
+            }else{
+                Swal.fire('Error', data.msg, 'error');
             }
         }catch (error){
             console.log(error);
