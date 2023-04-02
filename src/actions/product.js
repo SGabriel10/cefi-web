@@ -77,7 +77,7 @@ const productUpdate=(product)=>({
 export const productDeleted =(product)=>{
     return async(dispatch)=>{
         try{
-            const {data} = await axios.delete(`http://localhost:4000/cefi_api/categories/${product._id}`)
+            const {data} = await axios.delete(`http://localhost:4000/cefi_api/products/${product._id}`)
             if(data.ok){
                 Swal.fire('producto Borrado', data.msg, 'success');
                 dispatch(productDelete(product));

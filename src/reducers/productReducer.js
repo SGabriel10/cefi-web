@@ -22,17 +22,17 @@ export const productReducer=(state= initialState,action)=>{
         case types.productAddNew:
             return {
                 ...state,
-                products: [...state.categories,action.payload]
+                products: [...state.products,action.payload]
             }
         case types.productUpdate:
             return {
                 ...state,
-                products: state.categories.map(x => (x._id === action.payload._id)? action.payload : x )
+                products: state.products.map(x => (x._id === action.payload._id)? action.payload : x )
             }
         case types.productDelete:
             return{
                 ...state,
-                products: state.categories.filter(x=> x._id!==action.payload._id)
+                products: state.products.filter(x=> x._id!==action.payload._id)
             }
         default:
             return state;
