@@ -15,4 +15,11 @@ export const types = {
     categoryAddNew: '[category] add new Category',
     categoryUpdate: '[category] update a category',
     categoryDelete: '[category] delete a category',
+
+    productLoad: '[product] load products',
+    productActive: '[product] set active',
+    productClearActive: '[product] clear the product active',
+    productAddNew: '[product] add new product',
+    productUpdate: '[product] update a product',
+    productDelete: '[product] delete a product'
 }

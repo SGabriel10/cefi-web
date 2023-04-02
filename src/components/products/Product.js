@@ -1,13 +1,17 @@
-import React from 'react';
-import AddUser from "../users/AddUser";
+import React, {useEffect} from 'react';
 import {uiOpenModal} from "../../actions/ui";
 import {useDispatch} from "react-redux";
 import GetProducts from "./GetProducts";
 import AddProduct from "./AddProduct";
+import {categoryStartLoading} from "../../actions/category";
 
 const Product = () => {
 
     const dispatch = useDispatch();
+    useEffect(() => {
+        console.log("?");
+        dispatch(categoryStartLoading());
+    }, [dispatch,categoryStartLoading]);
 
     const handleModal=()=>{
         dispatch(uiOpenModal());

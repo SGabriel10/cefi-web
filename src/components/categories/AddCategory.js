@@ -9,9 +9,7 @@ import {uiCloseModal} from "../../actions/ui";
 import {useForm} from "../../hooks/useForm";
 
 const initForm = {
-    name: '',
-    email: '',
-    password: ''
+    descripcion: ''
 }
 
 const customStyles = {
@@ -63,10 +61,7 @@ const AddCategory = () => {
         e.preventDefault();
         if(activeCategory){
             dispatch(categoryUpdated(values));
-            // setFormValues(activeUser);
-            // console.log("editando");
         }else{
-            console.log("?");
             dispatch(categoryCreate(values));
         }
 

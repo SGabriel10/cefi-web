@@ -8,7 +8,6 @@ const User = () => {
     const dispatch = useDispatch();
     const handleModal=()=>{
        dispatch(uiOpenModal());
-        //console.log('imprimiendo');
     }
 
     return (
