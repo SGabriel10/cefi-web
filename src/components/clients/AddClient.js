@@ -7,11 +7,14 @@ import {useDispatch, useSelector} from "react-redux";
 import {userClearActive, userCreate, userStartLoading, userUpdated} from "../../actions/users";
 import {uiCloseModal} from "../../actions/ui";
 import {useForm} from "../../hooks/useForm";
+import {clientClearActive, clientCreate, clientStartLoading, clientUpdated} from "../../actions/client";
 
 const initForm = {
     name: '',
-    email: '',
-    password: ''
+    last_name: '',
+    ruc: '',
+    address: '',
+    phone: ''
 }
 
 const customStyles = {
@@ -20,7 +23,7 @@ const customStyles = {
         left                  : '50%',
         right                 : 'auto',
         bottom                : 'auto',
-        height                : '68%',
+        height                : '100%',
         marginRight           : '-50%',
         transform             : 'translate(-50%, -50%)'
     }
@@ -30,21 +33,21 @@ Modal.setAppElement('#root');
 
 
 
-const AddUser = () => {
+const AddClient = () => {
 
     const dispatch= useDispatch();
     const {modalOpen} = useSelector(state=>state.ui );
-    const {activeUser} = useSelector(state=> state.user);
+    const {activeClient} = useSelector(state=> state.client);
     const [values,handleInputChange,reset,setValues] = useForm(initForm);
-    const {name,email,password} = values;
+    const {name,last_name,ruc, address, phone} = values;
 
     useEffect(() => {
-        if(activeUser){
-            setValues(activeUser);
+        if(activeClient){
+            setValues(activeClient);
         }else{
             setValues(initForm);
         }
-    }, [activeUser,setValues]);
+    }, [activeClient,setValues]);
 
 
 
@@ -52,7 +55,7 @@ const AddUser = () => {
 
     const closeModal=()=>{
         dispatch(uiCloseModal());
-        dispatch(userClearActive());
+        dispatch(clientClearActive());
         reset();
     }
 
@@ -61,36 +64,34 @@ const AddUser = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        if(activeUser){
-            dispatch(userUpdated(values));
-           // setFormValues(activeUser);
-           // console.log("editando");
+        if(activeClient){
+            dispatch(clientUpdated(values));
         }else{
-            dispatch(userCreate(values));
+            dispatch(clientCreate(values));
         }
 
         reset();
         dispatch(uiCloseModal());
-        dispatch(userStartLoading());
+        dispatch(clientStartLoading());
     }
 
 
-        return (
-            <Modal
-                isOpen={modalOpen}
-                // onAfterOpen={afterOpenModal}
-                onRequestClose={closeModal}
-                style={customStyles}
-                closeTimeoutMS={200}
-                className="modal"
-                overlayClassName="modal-fondo"
-            >
+    return (
+        <Modal
+            isOpen={modalOpen}
+            // onAfterOpen={afterOpenModal}
+            onRequestClose={closeModal}
+            style={customStyles}
+            closeTimeoutMS={200}
+            className="modal"
+            overlayClassName="modal-fondo"
+        >
             <div className="container">
                 <div className="card">
                     <div className="card-header">
                         <div className="row">
                             <div className="col-md-10">
-                                <h4>{activeUser? 'Editar': 'Agregar'} Usuario</h4>
+                                <h4>{activeClient? 'Editar': 'Agregar'} Cliente</h4>
                             </div>
 
                         </div>
@@ -103,15 +104,23 @@ const AddUser = () => {
                             </div>
 
                             <div className="form-group mb-3">
-                                <label>Email</label>
-                                <input type="text" name="email" onChange={handleInputChange} value={email} className="form-control" />
+                                <label>Apellido</label>
+                                <input type="text" name="last_name" onChange={handleInputChange} value={last_name} className="form-control" />
                             </div>
 
                             <div className="form-group mb-3">
-                                <label>Password</label>
-                                <input type="password" name="password" onChange={handleInputChange} value={password} className="form-control" />
+                                <label>Ruc</label>
+                                <input type="text" name="ruc" onChange={handleInputChange} value={ruc} className="form-control" />
                             </div>
 
+                            <div className="form-group mb-3">
+                                <label>Dirección</label>
+                                <input type="text" name="address" onChange={handleInputChange} value={address} className="form-control" />
+                            </div>
+                            <div className="form-group mb-3">
+                                <label>Nro de telefono</label>
+                                <input type="text" name="phone" onChange={handleInputChange} value={phone} className="form-control" />
+                            </div>
                             <div className="form-group mb-3">
                                 <button
                                     type="submit"
@@ -126,7 +135,7 @@ const AddUser = () => {
                 </div>
             </div>
         </Modal>
-        );
+    );
 };
 
-export default AddUser;
+export default AddClient;

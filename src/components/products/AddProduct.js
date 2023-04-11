@@ -7,7 +7,6 @@ import {useDispatch, useSelector} from "react-redux";
 import {uiCloseModal} from "../../actions/ui";
 import {useForm} from "../../hooks/useForm";
 import {productClearActive, productCreate, productStartLoading, productUpdated} from "../../actions/product";
-import {categoryStartLoading} from "../../actions/category";
 
 const initForm = {
     descripcion: '',

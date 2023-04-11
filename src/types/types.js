@@ -21,5 +21,14 @@ export const types = {
     productClearActive: '[product] clear the product active',
     productAddNew: '[product] add new product',
     productUpdate: '[product] update a product',
-    productDelete: '[product] delete a product'
+    productDelete: '[product] delete a product',
+
+    clientActive: '[client] set active',
+    clientClearActive: '[client] clear the user active',
+    clientLoad: '[client] load clients',
+    clientAddNew: '[client] add New client',
+    clientUpdate: '[client] update a client',
+    clientDelete: '[client] delete a client',
+
+    saleAddDetails: '[sale] add details Sale'
 }

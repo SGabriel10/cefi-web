@@ -18,8 +18,15 @@ export default class Menu extends Component {
               <nav className="mt-2">
                 <ul className="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
                     <li className="nav-item">
-                        <Link  className="nav-link" to="/productos">
+                        <Link  className="nav-link" to="/ventas">
                             <i className="fa fa-shopping-cart"></i>
+                            <p> Ventas</p>
+                        </Link>
+                    </li>
+
+                    <li className="nav-item">
+                        <Link  className="nav-link" to="/productos">
+                            <i className="fas fa-store" aria-hidden="true"></i>
                             <p> Productos</p>
                         </Link>
                     </li>
@@ -30,7 +37,12 @@ export default class Menu extends Component {
                             <p> Categorias</p>
                         </Link>
                     </li>
-
+                    <li className="nav-item">
+                        <Link  className="nav-link" to="/clientes">
+                            <i className="far fa-address-card"></i>
+                            <p> Clientes</p>
+                        </Link>
+                    </li>
 
                     <li className="nav-item">
                   <Link  className="nav-link" to="/usuarios">

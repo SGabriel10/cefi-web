@@ -5,9 +5,7 @@ import {types} from "../types/types";
 export const productCreate = (product)=>{
     return async(dispatch)=>{
         try{
-            console.log(product);
             const {data}= await axios.post('http://localhost:4000/cefi_api/products/new',product);
-
             if(data.ok){
                 dispatch(productNew(product));
                 Swal.fire('Producto Creado',data.msg,'success');
