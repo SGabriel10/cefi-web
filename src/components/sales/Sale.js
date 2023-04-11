@@ -12,12 +12,15 @@ const now = moment();
 const Sale = () => {
 
     const dispatch = useDispatch();
+    const [total,setTotal] = useState(0);
     const [search, setSearch]= useState("");
-    const {clients} = useSelector(state => state.client)
+    const {clients} = useSelector(state => state.client);
+    const {details} = useSelector(state =>state.sale);
     const [ dateStart, setDateStart ] = useState( now.toDate() );
     useEffect(() => {
         dispatch(clientStartLoading());
         dispatch(productStartLoading());
+        calcularTotal();
     }, [dispatch]);
 
     const handleModal=()=>{
@@ -33,6 +36,20 @@ const Sale = () => {
     const handleStartDateChange = ( e ) => {
         setDateStart( e );
     }
+
+    const handleDelete = ()=>{
+
+    }
+
+    const calcularTotal = ()=>{
+        let totalAPagar= 0
+        details.map((x) =>{
+                    totalAPagar+=parseInt(x.product.precio_unitario)*parseInt(x.cantidad);
+            }
+        )
+        setTotal(totalAPagar);
+    }
+
     return (
         <div className="container ml-250">
             <div className="card card-info">
@@ -109,10 +126,31 @@ const Sale = () => {
                 </tr>
                 </thead>
                 <tbody>
-
+                {
+                    details.map((x, key) =>{
+                            return (
+                                <tr key={x._id}>
+                                    <th scope="row">{key+1}</th>
+                                    <td>{x.product.descripcion}</td>
+                                    <td>{x.product.precio_unitario}</td>
+                                    <td>{x.cantidad}</td>
+                                    <td>
+                                       <button onClick={()=>handleDelete(x)} className="btn btn-danger"><i className="fa fa-trash"></i></button>
+                                    </td>
+                                </tr>
+                            );
+                        }
+                    )
+                }
                 </tbody>
             </table>
             <AddDetails/>
+            <div className="row">
+                <label className="col-1">Total</label>
+                <input type="text" value={total} className=" col-3 form-control" disabled/>
+                <label className="col-2">gs</label>
+            </div>
+
         </div>
     );
 };
