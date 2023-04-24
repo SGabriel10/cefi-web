@@ -6,52 +6,55 @@ import {clientStartLoading} from "../../actions/client";
 import AddDetails from "./AddDetails";
 import {uiOpenModal} from "../../actions/ui";
 import {productStartLoading} from "../../actions/product";
+import {saleCreate, saleDetailDelete, saleStartSave} from "../../actions/sale";
 
 const now = moment();
 
 const Sale = () => {
 
     const dispatch = useDispatch();
-    const [total,setTotal] = useState(0);
-    const [search, setSearch]= useState("");
+    const [search, setSearch] = useState("");
     const {clients} = useSelector(state => state.client);
-    const {details} = useSelector(state =>state.sale);
-    const [ dateStart, setDateStart ] = useState( now.toDate() );
+    const {details, total} = useSelector(state => state.sale);
+    const [dateStart, setDateStart] = useState(now.toDate());
     useEffect(() => {
         dispatch(clientStartLoading());
         dispatch(productStartLoading());
-        calcularTotal();
     }, [dispatch]);
 
-    const handleModal=()=>{
+    const handleSubmit=()=>{
+        dispatch(saleCreate({
+            cliente: search,
+            fecha: dateStart,
+            total
+        },details));
+        setSearch("");
+    }
+    const handleModal = () => {
         dispatch(uiOpenModal());
     }
 
-    const handleSearch=(e)=>{
+    const handleSearch = (e) => {
         setSearch(e.target.value);
     }
-    const onSearch=(x)=>{
+    const onSearch = (x) => {
         setSearch(x);
     }
-    const handleStartDateChange = ( e ) => {
-        setDateStart( e );
+    const handleStartDateChange = (e) => {
+        setDateStart(e);
     }
 
-    const handleDelete = ()=>{
-
+    const handleDelete = (detail) => {
+        dispatch(saleDetailDelete(detail));
     }
 
-    const calcularTotal = ()=>{
-        let totalAPagar= 0
-        details.map((x) =>{
-                    totalAPagar+=parseInt(x.product.precio_unitario)*parseInt(x.cantidad);
-            }
-        )
-        setTotal(totalAPagar);
+    if(search === ""){
+        setSearch( "Sin Nombre");
     }
+    
 
     return (
-        <div className="container ml-250">
+        <div className="content-wrapper">
             <div className="card card-info">
                 <div className="card-header">
                     <h3 className="card-title">Venta</h3>
@@ -87,12 +90,14 @@ const Sale = () => {
                                 <DateTimePicker
                                     onChange={ handleStartDateChange }
                                     value={ dateStart }
+                                    className="datepicker"
                                 />
                             </div>
                         </div>
                         <div className="col-5">
 
                             <button
+                                onClick={handleSubmit}
                                 type="submit"
                                 className="btn btn-primary"
                             >
@@ -104,7 +109,7 @@ const Sale = () => {
             </div>
             <div className="row">
 
-                <div className="mb-2 col-md-4 offset-md-8">
+                <div className="mb-2 col-md-4 offset-md-8 text-right">
                     <button
                         onClick={handleModal}
                         type="submit"
@@ -119,22 +124,24 @@ const Sale = () => {
                 <thead>
                 <tr>
                     <th scope="col">#</th>
-                    <th scope="col">descripcion</th>
-                    <th scope="col">Precio unitario</th>
-                    <th scope="col">cantidad</th>
-                    <th scope="col">Acciones</th>
+                    <th scope="col">DESCRIPCION</th>
+                    <th scope="col">PRECIO UNITARIO</th>
+                    <th scope="col">CANTIDAD</th>
+                    <th scope="col">SUBTOTAL</th>
+                    <th scope="col">ACCIONES</th>
                 </tr>
                 </thead>
                 <tbody>
                 {
                     details.map((x, key) =>{
                             return (
-                                <tr key={x._id}>
+                                <tr key={x.product._id}>
                                     <th scope="row">{key+1}</th>
                                     <td>{x.product.descripcion}</td>
                                     <td>{x.product.precio_unitario}</td>
                                     <td>{x.cantidad}</td>
-                                    <td>
+                                    <td>{x.cantidad*x.product.precio_unitario}</td>
+                                    <td className="text-center">
                                        <button onClick={()=>handleDelete(x)} className="btn btn-danger"><i className="fa fa-trash"></i></button>
                                     </td>
                                 </tr>
@@ -147,7 +154,7 @@ const Sale = () => {
             <AddDetails/>
             <div className="row">
                 <label className="col-1">Total</label>
-                <input type="text" value={total} className=" col-3 form-control" disabled/>
+                <input type="text" value={total} className=" col-2 form-control" disabled/>
                 <label className="col-2">gs</label>
             </div>
 

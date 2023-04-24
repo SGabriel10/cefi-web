@@ -7,7 +7,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {uiCloseModal} from "../../actions/ui";
 import {useForm} from "../../hooks/useForm";
 import {productClearActive, productCreate, productStartLoading, productUpdated} from "../../actions/product";
-import {saleAddDetaill, saleDetaillsNew, saleDetailsStartLoading} from "../../actions/sale";
+import {saleAddDetaill, saleCalculateTotal, saleDetaillsNew, saleDetailsStartLoading} from "../../actions/sale";
 
 const initForm = {
     cantidad: '',
@@ -35,6 +35,7 @@ const AddDetails= () => {
     const dispatch= useDispatch();
     const {modalOpen} = useSelector(state=>state.ui );
     const {products} = useSelector(state=> state.product);
+    const [cantidadValid,setCantidadValid] = useState(true);
     const [currentPage, setCurrentPage] =useState(1);
     const [userPerPage]=useState(5);
     const [values,handleInputChange,reset,setValues] = useForm(initForm);
@@ -50,18 +51,25 @@ const AddDetails= () => {
     }
     const closeModal=()=>{
         dispatch(uiCloseModal());
-        dispatch(productClearActive());
+       // dispatch(productClearActive());
         reset();
     }
 
 
 
     const handleAddDetails = async (product, cantidad)=>{
-        dispatch(saleDetaillsNew({
-            product,
-            cantidad
-        }))
-        dispatch(uiCloseModal());
+        if (cantidad.trim().length >0){
+            let total=0;
+            total += parseInt(product.precio_unitario) * parseInt(cantidad);
+            dispatch(saleDetaillsNew({
+                product,
+                cantidad
+            }))
+            dispatch(saleCalculateTotal(total))
+            dispatch(uiCloseModal());
+        }else{
+            setCantidadValid(false);
+        }
     }
 
     if(!search){
@@ -102,7 +110,7 @@ const AddDetails= () => {
                                     onChange={handleInputChange}
                                     value={cantidad}
                                     autoComplete="off"
-                                    className="form-control" />
+                                    className={`form-control ${!cantidadValid && 'is-invalid'}`} />
                             </div>
                             <div className="col-5">
                                 <input value={search} onChange={handleSearch} type="text" placeholder="Buscar Producto" className="mb-3 form-control"/>

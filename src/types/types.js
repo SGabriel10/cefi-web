@@ -30,5 +30,15 @@ export const types = {
     clientUpdate: '[client] update a client',
     clientDelete: '[client] delete a client',
 
-    saleAddDetails: '[sale] add details Sale'
+    saleAddDetails: '[sale] add details Sale',
+    saleDeleteDetails: '[sale] delete a detail',
+    saleCalculateTotal: '[sale] calculate total of sale',
+    saleClearDetails: '[sale] clear details of sale',
+
+    authCheckingFinish: '[auth] checking login state',
+    authLogin: '[auth] Start Login',
+    authStartRegister: '[auth] checking login state',
+    authStartTokenRenew: '[auth] start token renew',
+    authLogout: '[auth] logout'
+
 }

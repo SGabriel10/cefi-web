@@ -18,7 +18,7 @@ const Product = () => {
     }
 
     return (
-        <div className="container ml-250">
+        <div className="content-wrapper">
             <div className="card">
                 <div className="card-header">
                     <div className="row">

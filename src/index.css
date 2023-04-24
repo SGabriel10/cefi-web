@@ -1,6 +1,4 @@
-.ml-250{
-    margin-left: 250px;
-}
+
 
 /* Modal */
 .ReactModalPortal > div{
@@ -61,5 +59,9 @@
      cursor: pointer;
      text-align: center;
      margin: 2px 0;
+ }
+
+ .react-datetime-picker__wrapper{
+     padding: 5px 0;
  }
 

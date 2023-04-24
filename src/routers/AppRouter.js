@@ -5,30 +5,30 @@ import {
     BrowserRouter as Router,
     Routes, Route
 } from "react-router-dom";
-import Menu from "../components/ui/Menu";
-import Product from "../components/products/Product";
-import Category from "../components/categories/Category";
-import AddCategory from "../components/categories/AddCategory";
-import AddClient from "../components/clients/AddClient";
-import Client from "../components/clients/Client";
-import AddUser from "../components/users/AddUser";
-import Sale from "../components/sales/Sale";
+import Login from "../components/auth/Login";
+import DashBoard from "./DashBoard";
+import {useDispatch, useSelector} from "react-redux";
 
 const AppRouter = () => {
+    const dispatch = useDispatch();
+    const {logged} = useSelector(state => state.auth);
+    /*useEffect(() => {
+        dispatch(startChecking);
+    }, [dispatch]);*/
     return (
         <div>
             <Router>
-                <Menu/>
                 <Routes>
-                    <Route path="/" element={<Admin/>}/>
-                    <Route exact path="/ventas" element={<Sale/>}/>
-                    <Route exact path="/productos" element={<Product/>} />
-                    <Route exact path="/categorias" element={<Category/>} />
-                    <Route exact path="/categorias/agregar" element={<AddCategory/>} />
-                    <Route exact path="/clientes" element={<Client/>} />
-                    <Route exact path="/clientes/agregar" element={<AddClient/>} />
-                    <Route exact path="/usuarios" element={<User />} />
-                    <Route exact path="/usuarios/agregar" element={<AddUser/>} />
+                    {
+                        (!logged) &&
+                        <><Route path="/" element={<Login/>}/>
+                            <Route exact path="/login" element={<Login/>}/>
+                            <Route path="*" element={<Login/>}/></>
+                    }
+
+                    {
+                        (logged) && <Route path="*" element={<DashBoard/>}/>
+                    }
                 </Routes>
             </Router>
         </div>
