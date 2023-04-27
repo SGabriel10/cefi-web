@@ -1,7 +1,7 @@
 import {fetchSinToken} from "../helpers/fetch";
 import {types} from "../types/types";
 import Swal from "sweetalert2";
-
+ 
 export const startLogin = (email,password)=>{
     return async (dispatch)=>{
         const resp = await fetchSinToken('auth',{email, password},'POST');
