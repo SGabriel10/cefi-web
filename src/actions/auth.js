@@ -1,11 +1,12 @@
 import {fetchSinToken} from "../helpers/fetch";
 import {types} from "../types/types";
 import Swal from "sweetalert2";
- 
+
 export const startLogin = (email,password)=>{
     return async (dispatch)=>{
         const resp = await fetchSinToken('auth',{email, password},'POST');
         const body = await resp.json();
+
         if (body.ok){
             localStorage.setItem('token',body.token);
             localStorage.setItem('token-init-date',new Date().getTime());
@@ -14,15 +15,20 @@ export const startLogin = (email,password)=>{
                 name: body.name
             }))
         }else {
-            Swal.fire('Error',body.msg,'error');
+            if(body.msg===undefined){
+                Swal.fire('Error',body.errors.email.msg,'error');
+            }else{
+                Swal.fire('Error',body.msg,'error');
+            }
         }
     }
 }
 
-export const startRegister=(email,password,name)=>{
+export const startRegister=(email,password,name,lastName)=>{
     return async (dispatch)=>{
-        const resp = await fetchSinToken('auth/new',{name,email, password},'POST');
+        const resp = await fetchSinToken('users/new',{name,lastName,email, password},'POST');
         const body = await resp.json();
+        console.log(body);
         if (body.ok){
             localStorage.setItem('token',body.token);
             localStorage.setItem('token-init-date',new Date().getTime());

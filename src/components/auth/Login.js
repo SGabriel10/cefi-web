@@ -34,7 +34,9 @@ const Login = () => {
                         </a>
                     </div>
                     <div className="card-body">
-                        <p className="login-box-msg">Sign in to start your session</p>
+                        <p className="login-box-msg">Inicia sesión para iniciar tu sesión
+
+                        </p>
 
                         <form action="../../index3.html" method="post">
                             <div className="input-group mb-3">
@@ -72,7 +74,7 @@ const Login = () => {
                                     <div className="icheck-primary">
                                         <input onClick={handleRemerberMe} type="checkbox" id="remember"/>
                                             <label htmlFor="remember">
-                                                Remember Me
+                                                Acuérdate de mí
                                             </label>
                                     </div>
                                 </div>
@@ -87,10 +89,10 @@ const Login = () => {
 
 
                         <p className="mb-1">
-                            <a href="forgot-password.html">I forgot my password</a>
+                            <a href="forgot-password.html">Olvidé mi contraseña</a>
                         </p>
                         <p className="mb-0">
-                            <a href="register.html" className="text-center">Register a new membership</a>
+                            <a href="register.html" className="text-center">Registrar una nueva membresía</a>
                         </p>
                     </div>
 

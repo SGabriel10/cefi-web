@@ -8,6 +8,7 @@ import {
 import Login from "../components/auth/Login";
 import DashBoard from "./DashBoard";
 import {useDispatch, useSelector} from "react-redux";
+import Register from "../components/auth/Register";
 
 const AppRouter = () => {
     const dispatch = useDispatch();
@@ -23,6 +24,7 @@ const AppRouter = () => {
                         (!logged) &&
                         <><Route path="/" element={<Login/>}/>
                             <Route exact path="/login" element={<Login/>}/>
+                            <Route exact path="/register" element={<Register/>}/>
                             <Route path="*" element={<Login/>}/></>
                     }
 
