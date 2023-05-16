@@ -2,6 +2,7 @@ import React, {useEffect,useState}from 'react'
 import {useDispatch, useSelector} from "react-redux";
 import {uiOpenModal} from "../../actions/ui";
 import {categoryDeleted, categorySetActive, categoryStartLoading} from "../../actions/category";
+import Pagination from "../ui/Pagination";
 
 const GetCategories = () => {
     let results=[];
@@ -76,7 +77,8 @@ const GetCategories = () => {
                 }
                 </tbody>
             </table>
-       </div>
+            <Pagination pagePerPage={userPerPage} totalPost={categories.length} paginate={paginate} currentPage={currentPage} setCurrentPage={setCurrentPage}/>
+        </div>
     )
 }
 export default GetCategories;
