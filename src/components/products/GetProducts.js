@@ -2,6 +2,7 @@ import React, {useEffect,useState}from 'react'
 import {useDispatch, useSelector} from "react-redux";
 import {uiOpenModal} from "../../actions/ui";
 import {productDeleted, productSetActive, productStartLoading} from "../../actions/product";
+import Pagination from "../ui/Pagination";
 
 const GetProducts = () => {
     let results=[];
@@ -80,6 +81,7 @@ const GetProducts = () => {
                 }
                 </tbody>
             </table>
+            <Pagination pagePerPage={userPerPage} totalPost={products.length} paginate={paginate} currentPage={currentPage} setCurrentPage={setCurrentPage}/>
         </div>
     )
 }
