@@ -55,9 +55,10 @@ const GetProducts = () => {
                 <thead>
                 <tr>
                     <th scope="col">#</th>
-                    <th scope="col">descripcion</th>
-                    <th scope="col">Precio unitario</th>
-                    <th scope="col">Categoria</th>
+                    <th scope="col">DESCRIPCION</th>
+                    <th scope="col">PRECIO UNIT.</th>
+                    <th scope="col">CANTIDAD</th>
+                    <th scope="col">CATEGORIA</th>
                     <th scope="col">Acciones</th>
                 </tr>
                 </thead>
@@ -69,6 +70,7 @@ const GetProducts = () => {
                                     <th scope="row">{key+1}</th>
                                     <td>{x.descripcion}</td>
                                     <td>{x.precio_unitario}</td>
+                                    <td>{x.cantidad}</td>
                                     <td>{x.categoria.descripcion}</td>
                                     <td>
                                         <button onClick={()=>handleUpdate(x)} className="btn btn-info"><i className="fa fa-edit"></i></button>

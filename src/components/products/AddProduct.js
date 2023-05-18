@@ -11,6 +11,7 @@ import {productClearActive, productCreate, productStartLoading, productUpdated} 
 const initForm = {
     descripcion: '',
     precio_unitario: '',
+    cantidad: '',
     categoria: {}
 }
 
@@ -20,7 +21,7 @@ const customStyles = {
         left                  : '50%',
         right                 : 'auto',
         bottom                : 'auto',
-        height                : '68%',
+        height                : '75%',
         marginRight           : '-50%',
         transform             : 'translate(-50%, -50%)'
     }
@@ -37,7 +38,7 @@ const AddProduct= () => {
     const {activeProduct} = useSelector(state=> state.product);
     const {categories} = useSelector(state=> state.category);
     const [values,handleInputChange,reset,setValues] = useForm(initForm);
-    const {descripcion,precio_unitario} = values;
+    const {descripcion,precio_unitario,cantidad} = values;
     const [selected, setSelected] = useState(Object.values(categories)[0]);
 
 
@@ -60,6 +61,7 @@ const AddProduct= () => {
     const closeModal=()=>{
         dispatch(uiCloseModal());
         dispatch(productClearActive());
+        dispatch(productStartLoading());
         reset();
     }
 
@@ -70,18 +72,20 @@ const handleSelectChange=(e)=>{
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        let arreglo = selected.split(",");
         if(activeProduct){
             dispatch(productUpdated(values));
         }else{
+
             dispatch(productCreate({
                 ...values,
-             categoria: {selected}
+             categoria: {_id: arreglo[0], descripcion: arreglo[1]}
             }));
         }
 
         reset();
         dispatch(uiCloseModal());
-        dispatch(productStartLoading());
+
     }
 
 
@@ -115,10 +119,14 @@ const handleSelectChange=(e)=>{
                                 <input type="text" name="precio_unitario" onChange={handleInputChange} value={precio_unitario} className="form-control" />
                             </div>
                             <div className="form-group mb-3">
+                                <label>Cantidad</label>
+                                <input type="text" name="cantidad" onChange={handleInputChange} value={cantidad} className="form-control" />
+                            </div>
+                            <div className="form-group mb-3">
                                 <label>Categoria</label>
                                 <select className="form-control" value={selected} onChange={handleSelectChange} >
                                     {categories.map(c => (
-                                        <option key={c._id} value={c.descripcion}>
+                                        <option key={c._id} value={`${c._id},${c.descripcion}`}>
                                             {c.descripcion}
                                         </option>
                                     ))}
