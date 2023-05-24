@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import Admin from "../components/ui/Admin";
 import User from "../components/users/User";
 import {
@@ -9,13 +9,14 @@ import Login from "../components/auth/Login";
 import DashBoard from "./DashBoard";
 import {useDispatch, useSelector} from "react-redux";
 import Register from "../components/auth/Register";
+import {startChecking} from "../actions/auth";
 
 const AppRouter = () => {
     const dispatch = useDispatch();
     const {logged} = useSelector(state => state.auth);
-    /*useEffect(() => {
-        dispatch(startChecking);
-    }, [dispatch]);*/
+    useEffect(() => {
+        dispatch(startChecking());
+    }, [dispatch]);
     return (
         <div>
             <Router>
