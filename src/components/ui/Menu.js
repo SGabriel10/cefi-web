@@ -1,9 +1,14 @@
 import React from 'react'
 import { Link } from "react-router-dom";
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
+import {startLogout} from "../../actions/auth";
 
 const Menu = () => {
+    const dispatch = useDispatch();
     const {name}= useSelector(state=> state.auth)
+    const handleLogout=()=>{
+        dispatch(startLogout());
+    }
     return (
         <div>
             <nav className="main-header navbar navbar-expand navbar-white navbar-light">
@@ -12,6 +17,14 @@ const Menu = () => {
                         <a className="nav-link" data-widget="pushmenu" href="#" role="button"><i
                             className="fas fa-bars"></i></a>
                     </li>
+                </ul>
+                <ul className="navbar-nav ml-auto">
+                    <button className="btn btn-outline-danger"
+                            onClick={handleLogout}
+                    >
+                        <i className="fas fa-sign-out-alt"></i>
+                        Salir
+                    </button>
                 </ul>
             </nav>
             <aside className="main-sidebar sidebar-dark-primary elevation-4">
