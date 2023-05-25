@@ -7,7 +7,14 @@ import {useDispatch, useSelector} from "react-redux";
 import {uiCloseModal} from "../../actions/ui";
 import {useForm} from "../../hooks/useForm";
 import {productClearActive, productCreate, productStartLoading, productUpdated} from "../../actions/product";
-import {saleAddDetaill, saleCalculateTotal, saleDetaillsNew, saleDetailsStartLoading} from "../../actions/sale";
+import {
+    saleAddDetaill,
+    saleCalculateTotal,
+    saleDetaillsNew,
+    saleDetailsStartLoading,
+    verifyAmount
+} from "../../actions/sale";
+import Swal from "sweetalert2";
 
 const initForm = {
     cantidad: '',
@@ -58,15 +65,19 @@ const AddDetails= () => {
 
 
     const handleAddDetails = async (product, cantidad)=>{
-        if (cantidad.trim().length >0){
-            let total=0;
-            total += parseInt(product.precio_unitario) * parseInt(cantidad);
-            dispatch(saleDetaillsNew({
-                product,
-                cantidad
-            }))
-            dispatch(saleCalculateTotal(total))
-            dispatch(uiCloseModal());
+        if (cantidad>0){
+            if (product.cantidad >=cantidad){
+                let total=0;
+                total += parseInt(product.precio_unitario) * parseInt(cantidad);
+                dispatch(saleDetaillsNew({
+                    product,
+                    cantidad
+                }))
+                dispatch(saleCalculateTotal(total))
+                dispatch(uiCloseModal());
+            }else{
+                Swal.fire("Mensaje de Error", "no hay suficientes productos","error");
+            }
         }else{
             setCantidadValid(false);
         }

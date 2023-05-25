@@ -3,9 +3,6 @@ import axios from "axios";
 import Swal from "sweetalert2";
 
 
-export const saleDetailsStartLoading=()=>{
-
-}
 export const saleDetailCreate = (id,details)=>{
     return ()=>{
         try{
