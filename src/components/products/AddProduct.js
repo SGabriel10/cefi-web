@@ -21,7 +21,7 @@ const customStyles = {
         left                  : '50%',
         right                 : 'auto',
         bottom                : 'auto',
-        height                : '75%',
+        height                : '90%',
         marginRight           : '-50%',
         transform             : 'translate(-50%, -50%)'
     }
@@ -38,7 +38,7 @@ const AddProduct= () => {
     const {activeProduct} = useSelector(state=> state.product);
     const {categories} = useSelector(state=> state.category);
     const [values,handleInputChange,reset,setValues] = useForm(initForm);
-    const {descripcion,precio_unitario,cantidad} = values;
+    const {descripcion,cod_barras,precio_unitario,cantidad} = values;
     const [selected, setSelected] = useState(Object.values(categories)[0]);
 
 
@@ -113,6 +113,10 @@ const handleSelectChange=(e)=>{
                             <div className="form-group mb-3">
                                 <label>Descripcion</label>
                                 <input type="text" name="descripcion" onChange={handleInputChange} value={descripcion} className="form-control" />
+                            </div>
+                            <div className="form-group mb-3">
+                                <label>Cod. Barras</label>
+                                <input type="text" name="cod_barras" onChange={handleInputChange} value={cod_barras} className="form-control" />
                             </div>
                             <div className="form-group mb-3">
                                 <label>Precio unitario</label>

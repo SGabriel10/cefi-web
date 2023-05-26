@@ -54,13 +54,12 @@ export const productSetActive =(product)=>({
 export const productUpdated =(product)=>{
     return async (dispatch)=>{
         try{
-            const resp = await axios.put(`http://localhost:4000/cefi_api/categories/${product._id}`, product);
+            const resp = await axios.put(`http://localhost:4000/cefi_api/products/${product._id}`, product);
             const {data}= resp;
             if(data.ok){
-                Swal.fire("Categoria actualizada", data.msg, "success");
+                Swal.fire("Producto actualizado", data.msg, "success");
                 dispatch(productUpdate(product));
             }
-            //console.log(resp);
         }catch (error){
             console.log(error);
         }

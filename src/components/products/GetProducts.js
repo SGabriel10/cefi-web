@@ -56,6 +56,7 @@ const GetProducts = () => {
                 <tr>
                     <th scope="col">#</th>
                     <th scope="col">DESCRIPCION</th>
+                    <th scope="col">COD.BARRAS</th>
                     <th scope="col">PRECIO UNIT.</th>
                     <th scope="col">CANTIDAD</th>
                     <th scope="col">CATEGORIA</th>
@@ -69,6 +70,7 @@ const GetProducts = () => {
                                 <tr key={x._id}>
                                     <th scope="row">{key+1}</th>
                                     <td>{x.descripcion}</td>
+                                    <td>{x.cod_barras}</td>
                                     <td>{x.precio_unitario}</td>
                                     <td>{x.cantidad}</td>
                                     <td>{x.categoria.descripcion}</td>
