@@ -4,9 +4,9 @@ import DateTimePicker from 'react-datetime-picker';
 import {useDispatch, useSelector} from "react-redux";
 import {clientStartLoading} from "../../actions/client";
 import AddDetails from "./AddDetails";
-import {uiOpenModal} from "../../actions/ui";
+import {uiCloseModal, uiOpenModal} from "../../actions/ui";
 import {productStartLoading} from "../../actions/product";
-import {saleCreate, saleDetailDelete, saleStartSave} from "../../actions/sale";
+import {saleCreate, saleDetailDelete} from "../../actions/sale";
 
 const now = moment();
 
@@ -21,7 +21,13 @@ const Sale = () => {
         dispatch(clientStartLoading());
         dispatch(productStartLoading());
     }, [dispatch]);
+    useEffect(() => {
+        window.addEventListener("keydown", handleKeyPress);
 
+        return () => {
+            window.removeEventListener("keydown", handleKeyPress);
+        };
+    }, []);
     const handleSubmit=()=>{
         dispatch(saleCreate({
             cliente: search,
@@ -51,6 +57,18 @@ const Sale = () => {
     if(search === ""){
         setSearch( "Sin Nombre");
     }
+    const handleKeyPress = e =>{
+       console.log(e.key);
+        if(e.key==="F2"){
+            dispatch(uiOpenModal());
+        }
+        if(e.key==="Enter"){
+            dispatch(uiCloseModal());
+        }
+        if(e.key==="f"){
+            handleSearch();
+        }
+    }
     
 
     return (
@@ -61,12 +79,11 @@ const Sale = () => {
                 </div>
                 <div className="card-body">
                     <div className="row">
-                        <div className="col-3">
-                            <div className="row">
-                                <label className="col-3">
+                            <div className="form-group col-xs-4 col-md-2">
+                                <label className="control-label">
                                     Cliente
                                 </label>
-                                <input type="text" value={search} onChange={handleSearch} className="col-9 form-control"/>
+                                <input type="text" value={search} onChange={handleSearch} className="form-control"/>
                                 <div className="dropdown">
                                     {clients
                                         .filter(item=>{
@@ -79,27 +96,24 @@ const Sale = () => {
                                 </div>)
                                     }
                                 </div>
-                            </div>
                         </div>
-                        <div className="col-4">
-                            <div className="row">
-                                <label className="col-2">
-                                    Fecha
-                                </label>
+                        <div className="form-group col-xs-4 col-md-3">
+                            <label className="control-label">
+                                Fecha
+                            </label>
 
-                                <DateTimePicker
-                                    onChange={ handleStartDateChange }
-                                    value={ dateStart }
-                                    className="datepicker"
-                                />
-                            </div>
+                            <DateTimePicker
+                                onChange={ handleStartDateChange }
+                                value={ dateStart }
+                                className="form-control"
+                            />
                         </div>
-                        <div className="col-5">
 
+                        <div className="form-group col-xs-4 col-md-4">
                             <button
                                 onClick={handleSubmit}
                                 type="submit"
-                                className="btn btn-primary"
+                                className="btn btn-primary mtop"
                             >
                                 <span> Vender</span>
                             </button>
@@ -108,12 +122,11 @@ const Sale = () => {
                 </div>
             </div>
             <div className="row">
-
                 <div className="mb-2 col-md-4 offset-md-8 text-right">
                     <button
-                        onClick={handleModal}
-                        type="submit"
+                       onClick={handleModal}
                         className="btn btn-primary"
+
                     >
                         <span> Agregar Producto</span>
                     </button>

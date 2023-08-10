@@ -6,7 +6,6 @@ export const productCreate = (product)=>{
     return async(dispatch)=>{
         try{
             const {data}= await axios.post('http://localhost:4000/cefi_api/products/new',product);
-           // console.log(product);
             if(data.ok){
                 dispatch(productNew(product));
                 Swal.fire('Producto Creado',data.msg,'success');
