@@ -15,6 +15,7 @@ const Sale = () => {
     const dispatch = useDispatch();
     const [search, setSearch] = useState("");
     const {clients} = useSelector(state => state.client);
+    const {name} = useSelector(state => state.auth);
     const {details, total} = useSelector(state => state.sale);
     const [dateStart, setDateStart] = useState(now.toDate());
     useEffect(() => {
@@ -29,8 +30,12 @@ const Sale = () => {
         };
     }, []);
     const handleSubmit=()=>{
+        if(search===""){
+            setSearch("Sin Nombre");
+        }
         dispatch(saleCreate({
             cliente: search,
+            vendedor: name,
             fecha: dateStart,
             total
         },details));
@@ -54,11 +59,8 @@ const Sale = () => {
         dispatch(saleDetailDelete(detail));
     }
 
-    if(search === ""){
-        setSearch( "Sin Nombre");
-    }
+
     const handleKeyPress = e =>{
-       console.log(e.key);
         if(e.key==="F2"){
             dispatch(uiOpenModal());
         }
@@ -66,7 +68,8 @@ const Sale = () => {
             dispatch(uiCloseModal());
         }
         if(e.key==="f"){
-            handleSearch();
+            document.getElementById("cliente").focus();
+            setSearch("");
         }
     }
     
@@ -83,7 +86,7 @@ const Sale = () => {
                                 <label className="control-label">
                                     Cliente
                                 </label>
-                                <input type="text" value={search} onChange={handleSearch} className="form-control"/>
+                                <input id="cliente" type="text" value={search} onChange={handleSearch} className="form-control pt-1 pb-1"/>
                                 <div className="dropdown">
                                     {clients
                                         .filter(item=>{
@@ -97,19 +100,29 @@ const Sale = () => {
                                     }
                                 </div>
                         </div>
+
                         <div className="form-group col-xs-4 col-md-3">
                             <label className="control-label">
                                 Fecha
                             </label>
 
+
                             <DateTimePicker
                                 onChange={ handleStartDateChange }
                                 value={ dateStart }
-                                className="form-control"
+                                className="form-control pt-1 pb-1"
                             />
                         </div>
+                        <div className="form-group col-xs-4 cols-md-4">
+                            <label className="control-label">
+                                Vendedor
+                            </label>
+                            <div className="form control">
+                                <input type="text" value={name} disabled className="pt-1 pb-1"/>
+                            </div>
 
-                        <div className="form-group col-xs-4 col-md-4">
+                        </div>
+                        <div className="form-group col-xs-4 col-md-3">
                             <button
                                 onClick={handleSubmit}
                                 type="submit"
