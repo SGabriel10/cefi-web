@@ -43,7 +43,7 @@ export const GetClients = () => {
         results= currentUsers
     }else{
         results= clients.filter((x)=>
-            x.name.toLowerCase().includes(search.toLowerCase())
+            x.name.toLowerCase().includes(search.toLowerCase()) || x.ruc.toLowerCase().includes(search.toLowerCase())
         )
     }
     return (
