@@ -10,6 +10,8 @@ import Client from "../components/clients/Client";
 import AddClient from "../components/clients/AddClient";
 import User from "../components/users/User";
 import AddUser from "../components/users/AddUser";
+import Price from '../components/prices/Price';
+import AddPrice from '../components/prices/AddPrice';
 
 const DashBoard = () => {
     return (
@@ -25,6 +27,8 @@ const DashBoard = () => {
                 <Route exact path="/clientes/agregar" element={<AddClient/>} />
                 <Route exact path="/usuarios" element={<User />} />
                 <Route exact path="/usuarios/agregar" element={<AddUser/>} />
+                <Route exact path="/precios" element={<Price/>} />
+                <Route exact path="/precios/agregar" element={<AddPrice/>}/>
             </Routes>
         </div>
     );

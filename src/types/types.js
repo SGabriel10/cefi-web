@@ -30,6 +30,13 @@ export const types = {
     clientUpdate: '[client] update a client',
     clientDelete: '[client] delete a client',
 
+    priceActive: '[price] set active',
+    priceClearActive: '[price] clear the user active',
+    priceLoad: '[price] load prices',
+    priceAddNew: '[price] add New price',
+    priceUpdate: '[price] update a price',
+    priceDelete: '[price] delete a price',
+
     saleAddDetails: '[sale] add details Sale',
     saleDeleteDetails: '[sale] delete a detail',
     saleCalculateTotal: '[sale] calculate total of sale',

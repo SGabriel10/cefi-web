@@ -18,6 +18,7 @@ const Login = () => {
     const handleLogin=(e)=>{
         e.preventDefault();
         dispatch(startLogin(loginEmail, loginPassword));
+        console.log(loginPassword);
     }
 
     const handleRemerberMe=()=>{

@@ -1,18 +1,17 @@
 import React, {useEffect} from 'react';
 import {uiOpenModal} from "../../actions/ui";
 import {useDispatch} from "react-redux";
-import GetProducts from "./GetProducts";
-import AddProduct from "./AddProduct";
-import {categoryStartLoading} from "../../actions/category";
+import AddPrice from './AddPrice';
+import GetPrices from './GetPrices';
 
-const Product = () => {
+const Price = () => {
 
     const dispatch = useDispatch();
-    useEffect(() => {
+/*    useEffect(() => {
         //console.log("?");
         dispatch(categoryStartLoading());
     }, [dispatch,categoryStartLoading]);
-
+*/
     const handleModal=()=>{
         dispatch(uiOpenModal());
     }
@@ -23,21 +22,21 @@ const Product = () => {
                 <div className="card-header">
                     <div className="row">
                         <div className="col-md-10">
-                            <h4>Productos</h4>
+                            <h4>Precios</h4>
                         </div>
                         <div className="col-md-2">
-                            <button className="btn btn-primary btn-sm float-end" onClick={handleModal}>Agregar Producto</button>
+                            <button className="btn btn-primary btn-sm float-end" onClick={handleModal}>Agregar Precio</button>
                         </div>
 
                     </div>
                 </div>
                 <div className="card-body">
-                    <GetProducts/>
+                    <GetPrices/>
                 </div>
             </div>
-            <AddProduct/>
+            <AddPrice/>
         </div>
     );
 };
 
-export default Product;
+export default Price;

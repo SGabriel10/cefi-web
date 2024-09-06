@@ -65,10 +65,17 @@ const Menu = () => {
                                     <p> Categorias</p>
                                 </Link>
                             </li>
+
                             <li className="nav-item">
                                 <Link  className="nav-link" to="/clientes">
                                     <i className="far fa-address-card"></i>
                                     <p> Clientes</p>
+                                </Link>
+                            </li>
+                            <li className="nav-item">
+                                <Link  className="nav-link" to="/precios">
+                                    <i class='far fa-money-bill-alt'></i>
+                                    <p> Precios</p>
                                 </Link>
                             </li>
 
