@@ -12,6 +12,9 @@ import User from "../components/users/User";
 import AddUser from "../components/users/AddUser";
 import Price from '../components/prices/Price';
 import AddPrice from '../components/prices/AddPrice';
+import Ticket from '../components/ticket/Ticket';
+import Imprimir from '../components/ticket/Imprimir';
+import CalculateHours from '../components/ticket/CalculateHours';
 
 const DashBoard = () => {
     return (
@@ -29,6 +32,9 @@ const DashBoard = () => {
                 <Route exact path="/usuarios/agregar" element={<AddUser/>} />
                 <Route exact path="/precios" element={<Price/>} />
                 <Route exact path="/precios/agregar" element={<AddPrice/>}/>
+                <Route exact path="/ticket" element={<Ticket/>}/>
+                <Route exact path="/imprimir" element={<Imprimir/>}/>
+                <Route exact path="/calcular" element={<CalculateHours/>}/>
             </Routes>
         </div>
     );

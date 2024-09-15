@@ -22,6 +22,9 @@ const Sale = () => {
         dispatch(clientStartLoading());
         dispatch(productStartLoading());
     }, [dispatch]);
+    useEffect(()=> {
+        const timer = setInterval(()=>{setDateStart(new Date)});
+    });
     useEffect(() => {
         window.addEventListener("keydown", handleKeyPress);
 

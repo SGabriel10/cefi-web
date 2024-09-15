@@ -68,10 +68,8 @@ const GetPrices = () => {
                                 <tr key={x._id}>
                                     <th scope="row">{key+1}</th>
                                     <td>{x.descripcion}</td>
-                                    <td>{x.cod_barras}</td>
-                                    <td>{x.precio_unitario}</td>
-                                    <td>{x.cantidad}</td>
-                                    <td>{x.categoria.descripcion}</td>
+                                    <td>{x.duracion}</td>
+                                    <td>{x.precio}</td>
                                     <td>
                                         <button onClick={()=>handleUpdate(x)} className="btn btn-info"><i className="fa fa-edit"></i></button>
                                         <button onClick={()=>handleDelete(x)} className="btn btn-danger"><i className="fa fa-trash"></i></button>

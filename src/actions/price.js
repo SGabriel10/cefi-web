@@ -28,8 +28,9 @@ export const priceStartLoading = ()=>{
     return async (dispatch)=>{
         try{
             const {data} = await axios.get('http://localhost:4000/cefi_api/prices/');
-            const {prices} = data
-            dispatch(priceLoaded(prices));
+            //console.log(data);
+            const {precios} = data
+            dispatch(priceLoaded(precios));
         }catch (error){
             console.log(error);
         }
@@ -37,9 +38,10 @@ export const priceStartLoading = ()=>{
 }
 
 const priceLoaded = (price) =>({
-    type: types.priceLoad,
+   type: types.priceLoad,
     payload: price
-});
+}
+);
 
 
 export const priceClearActive = ()=>({

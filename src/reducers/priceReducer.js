@@ -3,6 +3,7 @@ const initialState = {
     prices: []
 }
 export const priceReducer=(state= initialState,action)=>{
+    //console.log(action);
     switch (action.type){
         case types.priceLoad:
             return {
