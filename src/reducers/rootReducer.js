@@ -7,11 +7,13 @@ import {clientReducer} from "./clientReducer";
 import {saleReducer} from "./saleReducer";
 import {authReducer} from "./authReducer";
 import { priceReducer } from "./priceReducer";
+import { parkingReducer } from "./parkingReducer";
 
 export const rootReducer = combineReducers(
     {
         user: userReducer,
         ui: uiReducer,
+        parking: parkingReducer,
         category: categoryReducer,
         product: productReducer,
         client: clientReducer,

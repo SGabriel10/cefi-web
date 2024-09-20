@@ -37,6 +37,13 @@ export const types = {
     priceUpdate: '[price] update a price',
     priceDelete: '[price] delete a price',
 
+
+    carActive: '[cars] set active',
+    carClearActive: '[cars] clear the user active',
+    carLoad: '[cars] load cars',
+    carUpdate: '[cars] update car',
+
+
     hourCalculateTotal: '[hour] calculate of parking',
     carAddDetails: '[hour] add car after calculate',
     hourClearDetails: '[hour] clear hour after calculate',

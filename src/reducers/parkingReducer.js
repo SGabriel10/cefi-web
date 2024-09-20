@@ -1,28 +1,19 @@
 import {types} from "../types/types";
 const initialState = {
-    details: [],
-    total: 0,
-    hour: 0.0
+    cars: []
 }
 export const parkingReducer=(state= initialState,action)=>{
     switch (action.type){
+        case types.carLoad:
+            return {
+                ...state,
+                cars: [...action.payload]
+            }
         case types.carAddDetails:
             return {
                 ...state,
-                details: [...state.details,action.payload]
-            }
-        case types.hourCalculateTotal:
-            return {
-                ...state,
-                total: state.total+action.payload
-            }
-        case types.hourClearDetails:
-            return {
-                ...state,
-                details: [],
-                total: 0,
-                hour: 0.0
-            }
+                cars: [...state.details,action.payload]
+        }
         default:
             return state;
     }

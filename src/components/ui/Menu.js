@@ -46,9 +46,13 @@ const Menu = () => {
                     <nav className="mt-2">
                         <ul className="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
                             <li className="nav-item">
+                            <Link className="nav-link" to="/calcular">
+                                <i class='fas fa-car'></i>
+                                <p>Estacionamiento</p>
+                             </Link>  
                              <Link className="nav-link" to="/imprimir">
                                 <i className="fa fa-print"></i>
-                                <p> Hora</p>
+                                <p> Hora y fecha</p>
                              </Link>   
                             </li>
                             <li className="nav-item">

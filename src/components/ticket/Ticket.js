@@ -8,12 +8,16 @@ const Ticket = React.forwardRef((props, ref) => {
         const timer = setInterval(()=>{setDate(now.format("HH:mm"))});
     });
     const [time, setTime] = useState(new Date());
+    const [date , setDay] = useState(new Date());
     useEffect(()=> {
         setInterval(()=>{setTime(new Date())},1000);
     },[]);
+    useEffect(()=> {
+        setDay(new Date());
+    },[]);
     return (
     <div id="barcode-hora">
-        <Barcode value={time.toLocaleTimeString()}/>
+        <Barcode value={time.toLocaleTimeString()+"-"+date.getDate()+"/"+date.getMonth()+"/"+date.getFullYear()}/>
     </div>
     );
 });
