@@ -6,6 +6,7 @@ import moment from "moment";
 const now = moment();
 const Imprimir = () => {
     const [time, setTime] = useState(new Date());
+    const [nroChapa,setChapa] = useState("");
     useEffect(()=> {
         setInterval(()=>{setTime(new Date())},1000);
     },[]);
@@ -27,6 +28,9 @@ const Imprimir = () => {
             */
         })
    }
+   const handleChapa=(e)=>{
+        setChapa(e.target.value);
+    }
   return (
     <div className="content-wrapper">
             <div className="card card-info">
@@ -42,6 +46,12 @@ const Imprimir = () => {
                             <p className="form-control">
                                 {time.toLocaleTimeString()}
                             </p>
+                        </div>
+                        <div className="form-group col-xs-4 col-md-3">
+                            <label className="control-label">
+                                Nro de chapa:
+                            </label>
+                            <input type="text" value={nroChapa} onChange={handleChapa} className="form-control pt-1 pb-1"/>
                         </div>
                         <div className="form-group col-xs-4 col-md-3">
                             <button
@@ -63,7 +73,7 @@ const Imprimir = () => {
             <tr index="1">
                 <td>
                 <div id="app">
-                    <Ticket/>
+                    <Ticket nro={nroChapa}/>
                 </div>
                 </td>
             </tr>

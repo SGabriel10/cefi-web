@@ -12,8 +12,18 @@ export const parkingReducer=(state= initialState,action)=>{
         case types.carAddDetails:
             return {
                 ...state,
-                cars: [...state.details,action.payload]
+                cars: [...state.cars,action.payload]
         }
+        case types.carActive:
+            return {
+                ...state,
+                activeCar: action.payload
+            }
+        case types.carClearActive:
+            return{
+                ...state,
+                activeCar: null
+            }
         default:
             return state;
     }

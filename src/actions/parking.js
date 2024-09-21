@@ -6,6 +6,7 @@ export const carCreate = (car)=>{
     return async(dispatch)=>{
         try{
             const {data}= await axios.post('http://localhost:4000/cefi_api/parking/new',car);
+            console.log(car);
             if(data.ok){
                 dispatch(carNew(car));
                 Swal.fire('Hora calculada',data.msg,'success');
@@ -27,7 +28,6 @@ export const carStartLoading = ()=>{
     return async (dispatch)=>{
         try{
             const {data} = await axios.get('http://localhost:4000/cefi_api/parking/');
-            console.log(data);
             const {carros} = data
             dispatch(carLoaded(carros));
         }catch (error){
@@ -41,9 +41,32 @@ const carLoaded = (car) =>({
     payload: car
 }
 );
+export const carUpdated =(car)=>{
+    return async (dispatch)=>{
+        try{
+            const resp = await axios.put(`http://localhost:4000/cefi_api/parking/${car._id}`, car);
+            const {data}= resp;
+            if(data.ok){
+                Swal.fire("Carro actualizado", data.msg, "success");
+                dispatch(carUpdate(car));
+            }
+        }catch (error){
+            console.log(error);
+        }
+    }
+}
 
 
 export const carSetActive =(car)=>({
     type: types.carActive,
     payload: car
+})
+
+const carUpdate=(price)=>({
+    type: types.priceUpdate,
+    payload: price
+})
+
+export const carClearActive = ()=>({
+    type: types.priceClearActive
 })

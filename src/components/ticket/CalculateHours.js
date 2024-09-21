@@ -8,14 +8,15 @@ import {priceStartLoading} from "../../actions/price";
 import {uiOpenModal} from "../../actions/ui";
 import { carCreate, carSetActive,carStartLoading} from '../../actions/parking';
 import Pagination from "../ui/Pagination";
+import AddCar from './AddCar';
 const now = moment();
 const CalculateHours = () => {
     let results=[];
     const dispatch= useDispatch();
     const {prices} = useSelector(state=> state.price);
     const {cars} = useSelector(state=>state.parking);
+    const {modalOpen} = useSelector(state=>state.ui );
     const [timeEnd, setTime] = useState(new Date());
-    const [serie, setSerie] = useState(0);
     const [start, setHours] = useState("");
     const [date , setDay] = useState(new Date());
     const [search, setSearch]= useState("")
@@ -47,8 +48,9 @@ const CalculateHours = () => {
         return a;    
     }
     const convertToTime=(time)=>{
-        const x = time.substring(8,time.length);
-        const t = time.substring(0,7);
+        const x = time.substring(9,13);
+        const t = time.substring(0,8);
+        console.log(x);
         if (x==="a.m."){ 
             return passHourAm(t);
         }
@@ -67,23 +69,32 @@ const CalculateHours = () => {
     const handleHours=(e)=>{
         setHours(e.target.value);
     }
-
+ 
     const handleCalculate=()=>{
-        const fecha_inicio = start.substring(13,start.length); 
+        const nro_chapa = start.substring(24,start.length);
+        const fecha_inicio = start.substring(14,23); 
         const fecha_fin = date.getDate()+"/"+date.getMonth()+"/"+date.getFullYear(); 
         const end = timeEnd.toLocaleTimeString('en-GB');
         const hms= convertToTime(start);
         const hora_inicio = hms[0] + ":"+hms[1]+":"+hms[2]; 
         const endTo= end.split(":");
-        const diffH = endTo[0] - hms[0];
-        const diffM = endTo[1] - hms[1];
-        const porcentaje = (diffM * 60) / 100
-        const porcentaje_calculado = porcentaje/100;
-        const diffTotal = diffH+","+diffM;
+        var datos = {};
         //const diffTotal = diffH+','+diffM;
         var total = 0;
         var total_final= 0.0;
         var total2 = 0.0;
+        const [dia,mes,anho] = fecha_inicio.split("/");
+        const fecha1 = new Date(anho,mes,dia,hms[0],parseInt(hms[1]),parseInt(hms[2])); // Fecha de inicio
+        const fecha2 = new Date(); // Fecha de fin
+        // Calcular la diferencia en milisegundos
+        const diferenciaMs = fecha2 - fecha1;
+        // Convertir la diferencia a horas
+        const diferenciaHoras = diferenciaMs / (1000 * 60 * 60);
+        const arreglo =diferenciaHoras.toString().split(".") ;
+        const diffH = arreglo[0];
+        const diffM = arreglo[1].slice(0,2);
+        const porcentaje = (diffM * 60) / 100
+        const porcentaje_calculado = porcentaje/100;
         for(var i = 0; i < prices.length;i ++){
             if(diffH <= 24){
                 if(prices[i].descripcion == "hora"){
@@ -92,18 +103,21 @@ const CalculateHours = () => {
                     total_final = total + total2;
                 }
             }
+            if(diffH == 0){
+                total_final=prices[i].precio;
+            }
         }
-        
-        setSerie(serie + 1);
-        dispatch(carCreate({
+       
+        datos = {
             fecha_inicio: fecha_inicio,
             hora_inicio: hora_inicio,
             fecha_fin: fecha_fin,
             hora_fin: end,
-            nro_chapa: serie,
-            total_hs: diffTotal,
+            nro_chapa: nro_chapa,
+            total_hs: diferenciaHoras.toFixed(2),
             total: total_final    
-        }));
+        }
+        dispatch(carCreate(datos));
     }
     const handleSearch=(e)=>{
         setSearch(e.target.value);
@@ -112,8 +126,8 @@ const CalculateHours = () => {
     if(!search){
         results= currentCategories
     }else{
-        results= prices.filter((x)=>
-            x.descripcion.toLowerCase().includes(search.toLowerCase())
+        results= cars.filter((x)=>
+            x.nro_chapa.toLowerCase().includes(search.toLowerCase())
         )
     }
 
@@ -172,6 +186,7 @@ const CalculateHours = () => {
                                     <td>{x.total}</td>
                                     <td>
                                         <button onClick={()=>handleUpdate(x)} className="btn btn-info"><i className="fa fa-edit"></i></button>
+                                        {modalOpen && (<AddCar/>)}
                                     </td>
                                 </tr>
                             );
@@ -180,7 +195,7 @@ const CalculateHours = () => {
                 }
                 </tbody>
             </table>
-            <Pagination pagePerPage={userPerPage} totalPost={prices.length} paginate={paginate} currentPage={currentPage} setCurrentPage={setCurrentPage}/>
+            <Pagination pagePerPage={userPerPage} totalPost={cars.length} paginate={paginate} currentPage={currentPage} setCurrentPage={setCurrentPage}/>
         </div>
     </div>
   );

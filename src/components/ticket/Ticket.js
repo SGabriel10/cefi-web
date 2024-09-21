@@ -17,7 +17,7 @@ const Ticket = React.forwardRef((props, ref) => {
     },[]);
     return (
     <div id="barcode-hora">
-        <Barcode value={time.toLocaleTimeString()+"-"+date.getDate()+"/"+date.getMonth()+"/"+date.getFullYear()}/>
+        <Barcode value={time.toLocaleTimeString()+"-"+date.getDate()+"/"+date.getMonth()+"/"+date.getFullYear()+"-"+props.nro}/>
     </div>
     );
 });
