@@ -15,6 +15,7 @@ import AddPrice from '../components/prices/AddPrice';
 import Ticket from '../components/ticket/Ticket';
 import Imprimir from '../components/ticket/Imprimir';
 import CalculateHours from '../components/ticket/CalculateHours';
+import UploadFile from '../components/upload/UploadFile';
 
 const DashBoard = () => {
     return (
@@ -35,6 +36,7 @@ const DashBoard = () => {
                 <Route exact path="/ticket" element={<Ticket/>}/>
                 <Route exact path="/imprimir" element={<Imprimir/>}/>
                 <Route exact path="/calcular" element={<CalculateHours/>}/>
+                <Route exact path="/upload" element={<UploadFile/>}/>
             </Routes>
         </div>
     );

@@ -8,6 +8,7 @@ import {saleReducer} from "./saleReducer";
 import {authReducer} from "./authReducer";
 import { priceReducer } from "./priceReducer";
 import { parkingReducer } from "./parkingReducer";
+import { uploadReducer } from "./uploadReducer";
 
 export const rootReducer = combineReducers(
     {
@@ -19,6 +20,7 @@ export const rootReducer = combineReducers(
         client: clientReducer,
         sale: saleReducer,
         price: priceReducer,
-        auth: authReducer
+        auth: authReducer,
+        file: uploadReducer
     }
 )

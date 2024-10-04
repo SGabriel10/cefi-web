@@ -95,7 +95,12 @@ const Menu = () => {
                                     <p> Usuarios</p>
                                 </Link>
                             </li>
-
+                            <li className='nav-item'>
+                                <Link className='nav-link' to="/upload">
+                                    <i class="fa fa-cog"></i>
+                                    <p>Configuracion factura</p>
+                                </Link>
+                            </li>
                         </ul>
                     </nav>
                     {/* /.sidebar-menu */}

@@ -43,6 +43,7 @@ export const types = {
     carLoad: '[cars] load cars',
     carUpdate: '[cars] update car',
 
+    uploadAddNew: '[files] add new file',
 
     hourCalculateTotal: '[hour] calculate of parking',
     carAddDetails: '[hour] add car after calculate',
