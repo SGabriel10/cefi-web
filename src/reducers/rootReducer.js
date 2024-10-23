@@ -9,6 +9,7 @@ import {authReducer} from "./authReducer";
 import { priceReducer } from "./priceReducer";
 import { parkingReducer } from "./parkingReducer";
 import { uploadReducer } from "./uploadReducer";
+import { headerReducer } from "./headerReducer";
 
 export const rootReducer = combineReducers(
     {
@@ -21,6 +22,7 @@ export const rootReducer = combineReducers(
         sale: saleReducer,
         price: priceReducer,
         auth: authReducer,
-        file: uploadReducer
+        archivo: uploadReducer,
+        header: headerReducer
     }
 )

@@ -37,11 +37,13 @@ export const types = {
     priceUpdate: '[price] update a price',
     priceDelete: '[price] delete a price',
 
-
     carActive: '[cars] set active',
     carClearActive: '[cars] clear the user active',
     carLoad: '[cars] load cars',
     carUpdate: '[cars] update car',
+
+    headerNew: '[header] add new header',
+    headerLoad: '[header] load headers',
 
     uploadAddNew: '[files] add new file',
 

@@ -1,27 +1,33 @@
 import React, { useState } from 'react';
 
-import { uploadCreate } from '../../actions/upload';
-import { useDispatch } from 'react-redux';
+import { fileCreate, headerCreate } from '../../actions/upload';
+import { useDispatch,useSelector } from 'react-redux';
 import {useForm} from "../../hooks/useForm";
-
+import { useNavigate} from 'react-router-dom';
 const initForm = {
     nombre: '',
     propietario: '',
     direccion: '',
+    ruc: '',
     telefono: '',
 }
 const UploadFile = () => {
+  const navigate = useNavigate();
   const [selectedFile, setSelectedFile] = useState(null);
   const dispatch= useDispatch();
+  const {id} = useSelector(state=> state.archivo);
   const [values,handleInputChange,reset,setValues] = useForm(initForm);
-  const {nombre,propietario,direccion,telefono} = values;  
+  const {nombre,propietario,direccion,ruc,telefono} = values;  
   const handleFileUpload = (event) =>{ 
     setSelectedFile(event.target.files[0]);
   };
 
   
-  const handleSubmit=()=>{
-    dispatch(uploadCreate({empresa:{nombre,propietario,direccion,telefono},file: selectedFile}));    
+  const handleSubmit=(e)=>{
+    e.preventDefault();
+    dispatch(fileCreate(selectedFile));
+    dispatch(headerCreate({nombre,propietario,direccion,ruc,telefono},id)); 
+    navigate('/empresas');
   }
 
   return (
@@ -40,6 +46,11 @@ const UploadFile = () => {
                     <div className="card-body">
                         <form onSubmit={handleSubmit}>
                             <div className="form-group mb-3">
+                                <label>Nombre de la Empresa</label>
+                                <input type="text" name="nombre" onChange={handleInputChange} value={nombre} className="form-control" />
+                            </div>
+                           
+                            <div className="form-group mb-3">
                                 <label>Propietario</label>
                                 <input type="text" name="propietario" onChange={handleInputChange} value={propietario} className="form-control" />
                             </div>
@@ -47,12 +58,17 @@ const UploadFile = () => {
                                 <label>direccion</label>
                                 <input type="text" name="direccion" onChange={handleInputChange} value={direccion} className="form-control" />
                             </div>
+                            
+                            <div className="form-group mb-3">
+                                <label>Ruc</label>
+                                <input type="text" name="ruc" onChange={handleInputChange} value={ruc} className="form-control" />
+                            </div>
                             <div className="form-group mb-3">
                                 <label>Telefono</label>
                                 <input type="text" name="telefono" onChange={handleInputChange} value={telefono} className="form-control" />
                             </div>
                             <div className="form-group mb-3">
-                            <h3>Subir logo</h3>
+                                <h3>Subir logo</h3>
                                 <input type="file" onChange={handleFileUpload} />
                             </div>
                             <div className="form-group mb-3">

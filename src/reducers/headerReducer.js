@@ -1,14 +1,13 @@
 import {types} from "../types/types";
 const initialState = {
-        id: null
+    empresas: []
 }
-export const uploadReducer=(state= initialState,action)=>{
-    console.log(action);
+export const headerReducer=(state= initialState,action)=>{
     switch (action.type){
-        case types.uploadAddNew:
+        case types.headerLoad:
             return {
                 ...state,
-                id: action.payload,
+                empresas: [...action.payload]
             }
         default:
             return state;

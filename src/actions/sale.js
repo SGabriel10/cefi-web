@@ -24,7 +24,6 @@ export const saleCreate=(sale,details)=>{
                     dispatch(saleDetailCreate(data.venta._id,details));
                     Swal.fire('Venta Creada',data.msg,'success');
                     dispatch(saleClearDetails());
-
                 }else{
                     Swal.fire('Error', "No nada que vender", 'error');
                 }
