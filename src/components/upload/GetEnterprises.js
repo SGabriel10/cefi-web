@@ -1,8 +1,8 @@
 import React, {useEffect,useState}from 'react'
 import {useDispatch, useSelector} from "react-redux";
 import Pagination from '../ui/Pagination';
-import {headerStartLoading} from "../../actions/header";
-import {imageStartLoading} from "../../actions/upload";
+import {headerStartLoading,headerSetActive,checkActiveHeader} from "../../actions/header";
+
 export const GetEnterprises = () => {
     let results=[];
     const {empresas} = useSelector(state => state.header);
@@ -19,9 +19,11 @@ export const GetEnterprises = () => {
     useEffect(() => {
         dispatch(headerStartLoading());
     }, [dispatch]);
-
-    const handleActive=()=>{
-
+    useEffect(()=>{
+        dispatch(checkActiveHeader());
+    },[dispatch]);
+    const handleActive=(header)=>{
+        dispatch(headerSetActive(header));
     }
     const handleUpdate=(client)=>{
         //dispatch(clientSetActive(client));

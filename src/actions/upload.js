@@ -1,18 +1,7 @@
 import axios from 'axios';
 import Swal from "sweetalert2";
 import { types } from '../types/types';
-export const imageStartLoading=(id)=>{
-    return async (dispatch)=>{
-        try{
-            const {data} = await axios.get('http://localhost:4000/cefi_api/upload/',id);
-            return "hola";
-           // const {precios} = data
-         //   dispatch(priceLoaded(precios));
-        }catch (error){
-            console.log(error);
-        }
-}
-}
+
 export const fileCreate = (file)=>{
     return async(dispatch)=>{
         try{

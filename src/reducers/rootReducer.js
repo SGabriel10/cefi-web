@@ -10,6 +10,9 @@ import { priceReducer } from "./priceReducer";
 import { parkingReducer } from "./parkingReducer";
 import { uploadReducer } from "./uploadReducer";
 import { headerReducer } from "./headerReducer";
+import { entryReducer } from "./entryReducer";
+import { wasteReducer } from "./wasteReducer";
+import { balanceReducer } from "./balanceReducer";
 
 export const rootReducer = combineReducers(
     {
@@ -23,6 +26,9 @@ export const rootReducer = combineReducers(
         price: priceReducer,
         auth: authReducer,
         archivo: uploadReducer,
-        header: headerReducer
+        header: headerReducer,
+        entry: entryReducer,
+        waste: wasteReducer,
+        balance: balanceReducer
     }
 )

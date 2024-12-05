@@ -26,7 +26,7 @@ const UploadFile = () => {
   const handleSubmit=(e)=>{
     e.preventDefault();
     dispatch(fileCreate(selectedFile));
-    dispatch(headerCreate({nombre,propietario,direccion,ruc,telefono},id)); 
+    dispatch(headerCreate({nombre,propietario,direccion,ruc,telefono,active: false},id)); 
     navigate('/empresas');
   }
 

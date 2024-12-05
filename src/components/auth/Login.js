@@ -1,26 +1,29 @@
-import React from 'react';
-import {useDispatch} from "react-redux";
+import React, { useEffect, useState } from 'react';
+import {useDispatch, useSelector} from "react-redux";
 import {startLogin} from "../../actions/auth";
 import {useForm} from "../../hooks/useForm";
 import { useCookies } from 'react-cookie';
-
+import { checkActiveHeader } from '../../actions/header';
 const Login = () => {
 
     const dispatch= useDispatch();
+    const [header,setHeader] = useState({nombre: 'mi empresa', file: {url: 'http://localhost:4000/uploads/logo.jpg'}});
+    const {activeHeader}= useSelector(state=>state.header);
     const [cookies, setCookie] = useCookies(['username','password']);
     const [formLoginValues, handleInputChange ]= useForm( {
         loginEmail: cookies.username,
         loginPassword: cookies.password
     });
-
+    
     const {loginEmail, loginPassword} = formLoginValues;
-
+    /*useEffect(()=>{
+        dispatch(checkActiveHeader());
+        //setHeader(activeHeader);
+    },[dispatch]);*/
     const handleLogin=(e)=>{
         e.preventDefault();
         dispatch(startLogin(loginEmail, loginPassword));
-        console.log(loginPassword);
     }
-
     const handleRemerberMe=()=>{
         setCookie('username', loginEmail, { path: '/' });
         setCookie('password', loginPassword, { path: '/' });
@@ -31,12 +34,11 @@ const Login = () => {
             <div className="login-box">
                 <div className="card card-outline card-primary">
                     <div className="card-header text-center">
-                        <a href="../../index2.html" className="h1"><b>CEFI</b> <img src="fiuni.png" alt="FIUNI Logo" className="brand-image img-circle elevation-3" style={{ opacity: '.8' ,width:'50px'}} />
+                        <a href="../../index2.html" className="h3"><b>{header.nombre}</b> <img src={header.file.url} alt="FIUNI Logo" className="brand-image img-circle elevation-3" style={{ opacity: '.8' ,width:'50px'}} />
                         </a>
                     </div>
                     <div className="card-body">
                         <p className="login-box-msg">Inicia sesión para iniciar tu sesión
-
                         </p>
 
                         <form action="../../index3.html" method="post">

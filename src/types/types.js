@@ -44,14 +44,29 @@ export const types = {
 
     headerNew: '[header] add new header',
     headerLoad: '[header] load headers',
-
+    headerActive: '[header] set active',
     uploadAddNew: '[files] add new file',
 
     hourCalculateTotal: '[hour] calculate of parking',
     carAddDetails: '[hour] add car after calculate',
     hourClearDetails: '[hour] clear hour after calculate',
 
+    entryActive: '[entry] set active',
+    entryClearActive: '[entry] clear the user active',
+    entryLoad: '[entry] load entries',
+    entryAddNew: '[entry] add New entry',
+    entryUpdate: '[entry] update a entry',
+    entryDelete: '[entry] delete a entry',
 
+    wasteActive: '[waste] set waste',
+    wasteClearActive: '[waste] clear the user active',
+    wasteLoad: '[waste] load wastes',
+    wasteAddNew: '[waste] add New waste',
+    wasteUpdate: '[waste] update a waste',
+    wasteDelete: '[waste] delete a waste',
+
+    entradaLoad: '[balance] entries loads calculated',
+    salidaLoad: '[balance] outs loads calculated',
     saleAddDetails: '[sale] add details Sale',
     saleDeleteDetails: '[sale] delete a detail',
     saleCalculateTotal: '[sale] calculate total of sale',

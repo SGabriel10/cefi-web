@@ -17,7 +17,9 @@ import Imprimir from '../components/ticket/Imprimir';
 import CalculateHours from '../components/ticket/CalculateHours';
 import UploadFile from '../components/upload/UploadFile';
 import Enterprises from '../components/upload/Enterprises';
-
+import Entry from '../components/entries/Entry';
+import Waste from '../components/wastes/Waste';
+import Balance from '../components/balances/Balance';
 const DashBoard = () => {
     return (
         <div>
@@ -39,6 +41,9 @@ const DashBoard = () => {
                 <Route exact path="/calcular" element={<CalculateHours/>}/>
                 <Route exact path="/upload" element={<UploadFile/>}/>
                 <Route exact path="/empresas" element={<Enterprises/>}/>
+                <Route exact path="/ingresos" element={<Entry/>}/>
+                <Route exact path="/egresos" element={<Waste/>}/>
+                <Route exact path="/balance" element={<Balance/>}/>
             </Routes>
         </div>
     );

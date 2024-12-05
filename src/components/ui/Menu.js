@@ -1,11 +1,13 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Link } from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
 import {startLogout} from "../../actions/auth";
 
 const Menu = () => {
     const dispatch = useDispatch();
+    const [header,setHeader]=useState({nombre: 'mi empresa', file: {url: 'http://localhost:4000/uploads/logo.jpg'}})
     const {name}= useSelector(state=> state.auth)
+    const {activeHeader} = useSelector(state=>state.header);
     const handleLogout=()=>{
         dispatch(startLogout());
     }
@@ -30,8 +32,8 @@ const Menu = () => {
             <aside className="main-sidebar sidebar-dark-primary elevation-4">
                 {/* Brand Logo */}
                 <a href="index3.html" className="brand-link">
-                    <img src="fiuni.png" alt="FIUNI Logo" className="brand-image img-circle elevation-3" style={{ opacity: '.8' }} />
-                    <span className="brand-text font-weight-light">CEFI</span>
+                    <img src={header.file.url} alt="FIUNI Logo" className="brand-image img-circle elevation-3" style={{ opacity: '.8' }} />
+                    <span className="brand-text font-weight-light">{header.nombre}</span>
                 </a>
                 {/* Sidebar */}
                 <div className="sidebar">
@@ -88,6 +90,25 @@ const Menu = () => {
                                     <p> Precios</p>
                                 </Link>
                             </li>
+                            <li className="nav-item">
+                                <Link  className="nav-link" to="/balance">
+                                    <i class="fa fa-balance-scale"></i>
+                                    <p> Balance</p>
+                                </Link>     
+                            </li>
+                            <li className="nav-item">
+                                <Link  className="nav-link" to="/ingresos">
+                                    <i class='fas fa-dollar-sign'></i>
+                                    <p> Ingresos</p>
+                                </Link>
+                            </li>
+                            <li className="nav-item">
+                                <Link  className="nav-link" to="/egresos">
+                                    <i class='fas fa-coins'></i>
+                                    <p> Egresos</p>
+                                </Link>
+                            </li>
+
 
                             <li className="nav-item">
                                 <Link  className="nav-link" to="/usuarios">

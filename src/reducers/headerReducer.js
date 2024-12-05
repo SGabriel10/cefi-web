@@ -9,6 +9,11 @@ export const headerReducer=(state= initialState,action)=>{
                 ...state,
                 empresas: [...action.payload]
             }
+        case types.headerActive:
+            return {
+                ...state,
+                    activeHeader: action.payload
+            }
         default:
             return state;
     }
